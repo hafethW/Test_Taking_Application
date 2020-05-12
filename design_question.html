@@ -1,0 +1,685 @@
+<div class="split left" id = "left" style = "background-image : url(https://static.vecteezy.com/system/resources/previews/000/570/486/non_2x/vector-abstract-technology-gray-and-white-geometric-corporate-design-background.jpg);background-size:cover">
+
+<button style = "background-color:red;margin-left:10px;font-family:monospace;color:white;width:80px;" onclick = "back()">Return</button>
+<h1 id="title" style="margin-left:100px" >Question Design Interface</h1>
+
+<p class="questText" style ="margin-left:100px"> Question Description </p>
+<textarea id="desc" style ="margin-left:100px"rows="5" cols="50">
+</textarea>
+
+<br><br><br>
+<label class="questText" style ="margin-left:100px" for="difficulty">Select the Difficulty of the Question:</label>
+<select id="difficulty" >
+  <option value="0">Easy</option>
+  <option value="1">Medium</option>
+  <option value="2">Hard</option>
+</select>
+
+<br><br><br>
+
+<label class="questText" style = " margin-left:100px;"for="constraints">Specify the Category of the Question:</label>
+<select id="category">
+  <option value="lists">lists</option>
+  <option value="for">for loops</option>
+  <option value="while">while loops</option>
+  <option value="dict">dictionaries</option>
+  <option value="string">string</option>
+  <option value="if">if statements</option>
+</select>
+
+<br>
+<br>
+<br>
+
+
+
+
+
+<p class="questText" style="display:inline; margin-left:100px">Example Input 1</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 1</p>
+<br>
+
+<input id="input1" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output1" style="display:inline; margin-left:30px; type="text">
+
+<br>
+<br>
+<br>
+
+<p class="questText" style="display:inline; margin-left:100px;">Example Input 2</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 2</p>
+<br>
+
+<input id="input2" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output2" style="display:inline; margin-left:30px; type="text">
+
+
+<br><br><br>
+<div id = "optionalExamples" style="border:double; width:90%; border-color:red; padding-top:5px; padding-bottom:20px;border-left-width:0px;">
+<p style="color:red;margin-left:200px;font-size:30px;margin-top:10px;margin-bottom:10px;">Optional</p>
+<p class="questText" style="display:inline; margin-left:100px;">Example Input 3</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 3</p>
+<br>
+<input id="input3" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output3" style="display:inline; margin-left:30px; type="text">
+
+<br>
+<br>
+<br>
+
+<p class="questText" style="display:inline; margin-left:100px;">Example Input 4</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 4</p>
+<br>
+
+<input id="input4" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output4" style="display:inline; margin-left:30px; type="text">
+
+
+<br><br><br>
+<p class="questText" style="display:inline; margin-left:100px;">Example Input 5</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 5</p>
+<br>
+<input id="input5" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output5" style="display:inline; margin-left:30px; type="text">
+
+<br><br><br>
+
+<p class="questText" style="display:inline; margin-left:100px;">Example Input 6</p>
+<p class="questText" style="display:inline; margin-left:70px;">Example Output 6</p>
+<br>
+
+<input id="input6" style="display:inline; margin-left:100px; type="text">
+
+<input  id="output6" style="display:inline; margin-left:30px; type="text">
+</div>
+
+<br><br><br>
+
+<label class="questText" style = " margin-left:100px;">The Answer Must Contain one of the following:<br></label>
+<br>
+<select id="constraints" style = " margin-left:230px; height:50px;"">
+  <option style="text-align:center;" value="print">Print Statement</option>
+  <option value="None">...</option>
+  <option value="for">For Loop</option>
+  <option value="while">While Loop</option>
+  <option value="if">If Statement</option>
+</select>
+
+<br><br>
+
+<label class="questText" style = " margin-left:100px;">The Answer Must Contain a Function Called:</label>
+
+<input id="function_name" style="margin-left:200px; type="text">
+<br><br>
+<button id = "submit" style="margin-left:80px; width:450px; height:30px; font-size:20px;font-family:Monospace; border-style:outset; border-radius:15px;">Submit Question</button>
+
+<br><br><br><br>
+
+</div>
+
+<div class="split right" id = "right" style="background:url(https://i.pinimg.com/originals/e4/9a/3d/e49a3d345af2cc85aa174323e7c563cb.jpg);background-size:cover">
+
+
+  <label for="difficulty" style="margin-left:30px">Choose a Question Difficulty:</label>
+  <select id="d2">
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Hard">Hard</option>
+    <option selected value=""></option>
+
+  </select>
+
+  <button  onclick="filter()" id="search" style="width:180px; margin-left:30px;">Search</button>
+
+  <br><br><br>
+  <label style="margin-left:30px" for="c2">Choose a Question Category:</label>
+  <select id="c2">
+    <option value="Lists">lists</option>
+    <option value="For Loops">for loops</option>
+    <option value="While Loops">while loops</option>
+    <option value="Dictionaries">dictionaries</option>
+    <option value="String">string</option>
+    <option value="If Statements">if statements</option>
+    <option selected value=""></option>
+
+  </select>
+  <input placeholder="Keyword" id="keyword" type = "text" style="margin-left:20px">
+
+</div>
+
+<style>
+
+
+
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+label{
+    color:white;
+    font-family: "Lucida Console", Courier, monospace;
+
+  }
+
+p {
+color:white;
+font-family: "Lucida Console", Courier, monospace;
+
+}
+.questionNode{
+  border-style: double;
+    border-width: 5px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+
+}
+
+  /* Split the screen in half */
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #111;
+  }
+
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color:  grey;
+  }
+
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }
+
+
+
+p.questText {
+  color:black;
+
+}
+
+label.questText {
+  color:black;
+
+}
+
+
+  </style>
+
+<script>
+function back()
+{
+  window.location.replace("teacher_page.html")
+}
+
+
+
+
+  document.getElementById("submit").addEventListener('click',() => {
+
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function()
+    {
+            if (this.readyState == 4 && this.status == 200)
+             {
+                var t = this.responseText
+                console.log(t)
+
+
+              window.location.replace("design_limbo.html");
+
+
+
+
+                }
+    }
+
+
+    var inputList=[]
+    var outputList=[]
+
+inputIdList = ["input1","input2","input3","input4","input5","input6"]
+var minorInput = ""
+
+trueInputList = "["
+for (id in inputIdList)
+{
+var item = document.getElementById(inputIdList[id])
+if (item.value =="" && inputIdList[id]!="input1" && inputIdList[id]!="input2"){continue}
+var itemList = item.value.split(",")
+var m = "("
+for (var i in itemList)
+{
+
+  if (isNaN(parseInt(itemList[i])))
+    {
+    m+= "\'"+itemList[i]+"\'"
+    }
+    else
+    {
+      m+=itemList[i]
+    }
+    if(i!= itemList.length-1)
+    {
+      m+=","
+    }
+
+
+}
+m+=")"
+trueInputList+="\""+m+"\""+","
+
+}
+if (trueInputList[trueInputList.length-1]==","){trueInputList=trueInputList.substring(0,trueInputList.length-1)}
+trueInputList+="]"
+trueInputList = trueInputList.replace(/\+/g,"%2B")
+
+
+
+    inputList.push(document.getElementById("input1").value)
+    inputList.push(document.getElementById("input2").value)
+    outputList.push(document.getElementById("output1").value)
+    outputList.push(document.getElementById("output2").value)
+
+    if(document.getElementById("input3").value!=""){inputList.push(document.getElementById("input3").value)}
+    if(document.getElementById("input4").value!=""){inputList.push(document.getElementById("input4").value)}
+    if(document.getElementById("input5").value!=""){inputList.push(document.getElementById("input5").value)}
+    if(document.getElementById("input6").value!=""){inputList.push(document.getElementById("input6").value)}
+    if(document.getElementById("output3").value!=""){outputList.push(document.getElementById("output3").value)}
+    if(document.getElementById("output4").value!=""){outputList.push(document.getElementById("output4").value)}
+    if(document.getElementById("output5").value!=""){outputList.push(document.getElementById("output5").value)}
+    if(document.getElementById("output6").value!=""){outputList.push(document.getElementById("output6").value)}
+
+
+    var quest = document.getElementById("desc").value
+    var topic = document.getElementById("category").value
+    var difficulty = document.getElementById("difficulty").value
+
+    var constraints = document.getElementById("constraints").value
+    var function_name = document.getElementById("function_name").value
+
+inputString ='['
+outputString ='['
+
+for (var y in inputList)
+{
+  if(isNaN(parseInt(inputList[y])))
+{inputString+= '\"'+inputList[y]+'\"'}
+else {inputString+=inputList[y]}
+
+if(y!= inputList.length-1){inputString+=","}
+}
+
+
+for (var y in outputList){
+  if(isNaN(parseInt(outputList[y])))
+  {outputString+= '\"'+outputList[y]+'\"'}
+  else  {outputString+=outputList[y]}
+if(y!= outputList.length-1){outputString+=","}
+}
+inputString +=']'
+outputString +=']'
+outputString = outputString.replace(/\+/g,"%2B")
+quest = quest.replace(/\+/g,"%2B")
+
+
+    const pay =`quest=${quest}&function_name=${function_name}&topic=${topic}&difficulty=${difficulty}&tc_inputs=${trueInputList}&tc_outputs=${outputString}&constraint=${constraints}`
+    console.log(pay)
+  request.open('POST','https://web.njit.edu/~hhw2/login.php');
+  request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+
+
+
+})
+</script>
+
+
+
+<style>
+.score{
+display:inline;
+height:20px;
+margin-left:10px;
+
+}
+
+
+
+  .add {
+    font-size:20px;
+      font-family:monospace;
+        height:40px;
+    background:url("https://www.aiga.org/globalassets/migrated-images/uploadedimages/aiga/content/tools_and_resources/diversity_and_inclusion/why-is-graphic-design-93-percent-white-640.jpg")
+  }
+label{
+    color:white;
+    font-family: "Lucida Console", Courier, monospace;
+
+  }
+
+p {
+color:white;
+font-family: "Lucida Console", Courier, monospace;
+
+}
+.questionNode{
+  border-style: double;
+    border-width: 5px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+
+}
+
+  /* Split the screen in half */
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #111;
+  }
+
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color:  grey;
+  }
+
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }
+
+
+
+
+
+  </style>
+
+<script>
+  var questionList = [];
+
+  var empty = false;
+  var currentList = []
+
+
+
+function displayQuestions(questionList)
+{
+  currentList = questionList
+  for (var q in questionList)
+  {
+    var div1;
+    div1 = document.createElement("div");
+    div1.setAttribute("id","div"+q)
+    div1.classList.add("questionNode")
+    div1.style.margin="40px"
+
+    var hidden = document.createElement("p")
+    hidden.innerHTML = questionList[q]["qId"]
+    hidden.style.display = "none"
+    div1.appendChild(hidden)
+
+    var p1 = document.createElement("p");
+    p1.innerHTML = questionList[q]["question"]
+    div1.appendChild(p1)
+
+    var p2 = document.createElement("p");
+    p2.innerHTML = "Topic: "+ questionList[q]["topic"]
+    p2.style.width="50%"
+    p2.style.display="inline-block";
+
+    div1.appendChild(p2)
+
+
+    var p3 = document.createElement("p");
+    p3.innerHTML = "Difficulty: "+questionList[q]["difficulty"]
+    p3.style.width="50%"
+    p3.style.display="inline-block";
+
+    div1.appendChild(p3)
+
+
+    for (var num in questionList[q]["inputList"])
+    {
+    var p4 = document.createElement("p");
+    p4.innerHTML = "Example Input "+ num +": "+questionList[q]["inputList"][num] +" ----> Example Output "+ num +": "+ questionList[q]["outputList"][num]
+    div1.appendChild(p4)
+
+    }
+
+    div1.appendChild(document.createElement("BR"))
+
+
+    var p5 = document.createElement("p");
+    p5.innerHTML ="The Answer Must Contain a"+ questionList[q]["constraint"]
+    div1.appendChild(p5)
+
+
+    var p6 = document.createElement("p");
+    p6.innerHTML = "The Answer Must Contain a Function Called: "+questionList[q]["functionName"]
+    div1.appendChild(p6)
+
+
+
+    document.getElementById("right").appendChild(div1);
+  }
+}
+
+
+
+
+
+function removeDivs()
+{
+  for (var q in currentList)
+  {
+    document.getElementById("div"+q).remove()
+  }
+  currentList=[]
+}
+
+
+function storeQuestions(questDic)
+{
+  for (var key in questDic)
+  {
+    var placeholder = {
+      question : questDic[key].quest
+    }
+    switch(questDic[key].difficulty)
+    {
+      case "0":
+      placeholder.difficulty="Easy";
+      break;
+
+      case "1":
+      placeholder.difficulty="Medium";
+      break;
+
+      case "2":
+      placeholder.difficulty="Hard";
+      break;
+
+      default:
+      placeholder.difficulty="Easy";
+    }
+
+    switch(questDic[key].topic)
+    {
+      case "lists":
+      placeholder.topic="Lists";
+      break;
+
+      case "for":
+      placeholder.topic="For Loops";
+      break;
+
+      case "while":
+      placeholder.topic="While Loops";
+      break;
+
+      case "dict":
+      placeholder.topic="Dictionaries";
+      break;
+
+      case "string":
+      placeholder.topic="String";
+      break;
+
+      case "if":
+      placeholder.topic="If Statements";
+      break;
+    }
+
+    placeholder.inputList = questDic[key].tc_inputs
+    placeholder.outputList = questDic[key].tc_outputs
+
+    placeholder.functionName = questDic[key].function_name
+    placeholder.constraint = questDic[key].constraint
+    switch(questDic[key].constraint)
+    {
+      case "...":
+      placeholder.constraint=" Return Statement";
+      break;
+
+      case "for":
+      placeholder.constraint=" For Loop";
+      break;
+
+      case "while":
+      placeholder.constraint=" While Loop";
+      break;
+
+      case "if":
+      placeholder.constraint="n If Statement";
+      break;
+
+      case "if":
+      placeholder.constraint="Print Statement";
+      break;
+
+      default:
+      placeholder.constraint=" Return Statement";
+    }
+    placeholder.qId = key
+questionList.push(placeholder)
+  }
+}
+
+const request = new XMLHttpRequest();
+
+
+request.onreadystatechange = function()
+{
+        if (this.readyState == 4 && this.status == 200)
+         {
+
+
+           var t = JSON.parse(this.responseText)
+
+            storeQuestions(t)
+            displayQuestions(questionList);
+
+          }
+}
+
+var pay = `function=5`
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+
+function filter()
+{
+  var keyword = document.getElementById("keyword").value
+  var topic = document.getElementById("c2").value
+  var difficulty = document.getElementById("d2").value
+
+
+
+if(!empty)
+{
+removeDivs()
+empty = true;
+}
+var relevantList = []
+for (var q in questionList)
+{
+    if(questionList[q]["topic"].includes(topic) && questionList[q]["difficulty"].includes(difficulty) && questionList[q]["question"].includes(keyword))
+    {
+      relevantList.push(questionList[q])
+    }
+
+}
+
+displayQuestions(relevantList)
+if(relevantList.length != 0)
+{
+  empty=false
+}
+}
+  </script>

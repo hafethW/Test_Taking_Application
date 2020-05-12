@@ -1,0 +1,190 @@
+<title>ehJax</title>
+
+<style>
+
+  </style>
+
+  <body>
+    <h1>Instructor Page</h1>
+
+
+      <div>
+      <button  id="exam" class="btn left">Create Exam</button>
+      <button  id="add" class="btn right">Create Question</button>
+      </div>
+
+<br><br><br>
+      <div id="lower">
+      <button  id="grade" class="btn left">Auto Grade</button>
+      <button  id="review" class="btn right">Review Tests</button>
+
+      </div>
+      <br><br>
+      <button style = "width :600px;margin-left:300px;font-family:monospace;color:white;background:red;margin-bottom:20px;height:30px; "id="delete">Delete Exams</button>
+<br>
+      <button id="logout" onclick="logout()">LOGOUT</button>
+
+
+
+
+
+    <style>
+
+
+#logout{
+background-color:red;
+color:white;
+width:60%;
+height:70px;
+margin-left:230px;
+font-size: 40px;
+font-family:monospace;
+border:outset;
+
+}
+
+
+body {
+background: url("https://collegeofhairdesign.com/wp-content/uploads/2016/07/bg_gradient1.jpg")
+}
+
+.left{
+  margin-left:200px;
+}
+
+h1{
+  text-align:center;
+  font-family:Monospace;
+  font-size:60px;
+  color:white;
+}
+
+.right{
+  margin-left:50px;
+
+}
+
+.btn{
+  font-size: 40px;
+  font-family: Monospace;
+  height:400px;
+  width:400px;
+  border:double;
+  border-width:10px;
+  border-color:white;
+  background-color:#ADD8E6;
+  border-radius: 45px;
+  background: url("https://us.123rf.com/450wm/foreverrich/foreverrich1805/foreverrich180500071/102147942-gradient-blue-light-business-template-banner-background.jpg?ver=6")
+}
+
+    </style>
+    <script>
+if (localStorage.getItem("exam_make") == "false")
+{
+console.log(localStorage.getItem("exam_make"))
+document.getElementById("exam").disabled = true
+document.getElementById("exam").style.color="red"
+document.getElementById("exam").style.borderColor="red"
+document.getElementById("exam").innerHTML = "Exam Creation Unavailable"
+document.getElementById("exam").style.fontSize="20px"
+}
+  const form = {
+
+        submit:document.getElementById("exam")
+        //submit:document.getElementById("add")
+      };
+
+      const form2 = {
+
+        submit:document.getElementById("add")
+        //submit:document.getElementById("add")
+      };
+
+      const form3 = {
+
+        submit:document.getElementById("grade")
+        //submit:document.getElementById("add")
+      };
+
+      const form4 = {
+
+        submit:document.getElementById("review")
+        //submit:document.getElementById("add")
+      };
+
+form.submit.addEventListener('click',() => {
+
+
+window.location.replace("select_questions.html");
+
+});
+
+form2.submit.addEventListener('click',() => {
+
+
+window.location.replace("design_question.html");
+
+});
+
+
+
+
+form3.submit.addEventListener('click',() => {
+
+  const request = new XMLHttpRequest();
+  const pay = ""
+  request.onreadystatechange = function()
+    {
+          if (this.readyState == 4 && this.status == 200)
+          {
+            console.log(this.responseText);
+            window.location.replace("grade_limbo.html");
+
+
+          }
+    }
+    const pay2 = `function=7`;
+    request.open('POST','https://web.njit.edu/~hhw2/grade.php');
+    request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    request.send(pay2);
+
+});
+
+
+form4.submit.addEventListener('click',() => {
+
+  window.location.replace("table.html");
+
+})
+
+console.log(localStorage.getItem("ucid"))
+
+
+document.getElementById("delete").addEventListener('click',() => {
+
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function()
+    {
+          if (this.readyState == 4 && this.status == 200)
+          {
+            console.log(this.responseText);
+
+
+          }
+    }
+    const pay2 = `function=11&exam_id=-1`;
+    request.open('POST','https://web.njit.edu/~hhw2/login.php');
+    request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    request.send(pay2);
+
+});
+
+
+function logout()
+{
+  window.location.replace("login.html");
+}
+
+      </script>
+
+      </body>

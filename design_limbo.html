@@ -1,0 +1,83 @@
+<title>ehJax</title>
+
+<style>
+  body {
+  background: url("https://img.freepik.com/free-vector/confetti-background-flat-design_23-2148445794.jpg?size=626&ext=jpg");
+
+  }
+  .btn{
+    font-size: 70px;
+    font-family: Monospace;
+    height:500px;
+    width:500px;
+    border:double;
+    border-width:10px;
+    border-color:black;
+    background-color:#ADD8E6;
+    border-radius: 45px;
+    background: url("https://img.freepik.com/free-vector/abstract-blue-geometric-shapes-background_1035-17545.jpg?size=626&ext=jpg");
+    background-size:cover;
+    font-weight:bold;
+  }
+  #take{
+  margin-left:100px;
+  margin-right:70px;
+  }
+
+  h1{
+    text-align:center;
+    font-family:Monospace;
+    font-size:60px;
+    color:black;
+  }
+
+  </style>
+
+  <body>
+    <h1>You Submitted a Question!</h1>
+    <div class = "form">
+
+
+
+      <button  id="take" class="btn">Submit Another Question</button>
+      <button  id="review" class="btn">Return to Instructor Portal</button>
+
+
+
+
+      </div>
+    <script>
+
+      const form = {
+
+        submit:document.getElementById("take")
+        //submit:document.getElementById("add")
+      };
+
+      const form2 = {
+
+        submit:document.getElementById("review")
+        //submit:document.getElementById("add")
+      };
+
+
+
+form.submit.addEventListener('click',() => {
+
+
+window.location.replace("design_question.html");
+
+});
+
+form2.submit.addEventListener('click',() => {
+
+
+window.location.replace("teacher_page.html");
+
+});
+
+
+
+      </script>
+
+      </body>

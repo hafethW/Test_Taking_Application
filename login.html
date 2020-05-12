@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CS 100 Login Form</title>
+
+    <style>
+
+
+body{
+	margin: 0;
+	padding: 0;
+	background: #fff;
+
+	color: #fff;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.body{
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image: url(https://www.torcon.com/sites/torcon/files/styles/asset_image_middle_size/public/King-Interior_1_1.jpg?itok=F6iFBU2X);
+	background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: 0;
+}
+
+
+
+.header{
+	position: absolute;
+	top: calc(50% - 35px);
+	left: calc(50% - 255px);
+	z-index: 2;
+	float: left;
+	color: red;
+	font-family: 'Exo', sans-serif;
+	font-size: 60px;
+	font-weight: 600;
+}
+
+
+
+.login{
+	position: absolute;
+	top: calc(50% - 75px);
+	left: calc(50% - 50px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.login input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 4px;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid white;
+	border-radius: 4px;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.login input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.login input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.login input[type=button]:active{
+	opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid white;
+}
+
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid white;
+}
+
+.login input[type=button]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+
+::-moz-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+</style>
+
+
+</head>
+
+<body>
+
+  <div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>NJIT</div>
+		</div>
+		<br>
+		<div class="login">
+				<input id = "username" type="text" placeholder="username" name="user"><br>
+				<input id = "password" type="password" placeholder="password" name="password"><br>
+				<input id = "btn-submit" type="button" value="Login">
+		</div>
+
+
+</body>
+
+
+<script>
+
+  const form = {
+    username: document.getElementById("username"),
+    password: document.getElementById("password"),
+    submit: document.getElementById("btn-submit")
+  };
+
+
+form.submit.addEventListener('click',() => {
+const request = new XMLHttpRequest();
+
+request.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var t = this.responseText;
+          var e = JSON.parse(t);
+          console.log(e)
+          if (e["accept"] == "00")
+          {
+            localStorage.setItem("ucid", document.getElementById("username").value);
+            localStorage.setItem("exam_take", false);
+            localStorage.setItem("exam_review", false);
+
+
+            window.location.replace("student.html");
+
+          }
+          else if(e["accept"] == "01")
+        {
+          localStorage.setItem("ucid", document.getElementById("username").value);
+          localStorage.setItem("exam_take", false);
+          localStorage.setItem("exam_review", true);
+
+          window.location.replace("student.html");
+
+        }
+        else if(e["accept"] == "10")
+      {
+        localStorage.setItem("ucid", document.getElementById("username").value);
+        localStorage.setItem("exam_take", true);
+        localStorage.setItem("exam_review", false);
+
+        window.location.replace("student.html");
+
+      }
+      else if(e["accept"] == "11")
+    {
+      localStorage.setItem("ucid", document.getElementById("username").value);
+      localStorage.setItem("exam_take", true);
+      localStorage.setItem("exam_review", true);
+
+      window.location.replace("student.html");
+
+    }
+        else if (e["accept"] == "2")
+          {
+            localStorage.setItem("ucid", document.getElementById("username").value);
+            localStorage.setItem("exam_make", true);
+
+            window.location.replace("teacher_page.html");
+
+          }
+
+        else if (e["accept"] == "3")
+        {
+          localStorage.setItem("ucid", document.getElementById("username").value);
+          localStorage.setItem("exam_make", false);
+
+          window.location.replace("teacher_page.html");
+
+        }
+        }
+      }
+
+var user = document.getElementById("username").value
+var pass = document.getElementById("password").value
+//window.location.replace("select_questions.html");
+
+
+
+const pay = `ucid=${form.username.value}&pass=${form.password.value}`;
+console.log(pay)
+
+//console.log(pay)
+
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+
+});
+
+
+  </script>
+
+
+
+
+
+
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+
+
+
+  <script>
+
+var allDic;
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function()
+    {
+            if (this.readyState == 4 && this.status == 200)
+		             {
+		                var t = JSON.parse(this.responseText)
+										allDic = t
+										console.log(t)
+		                var body = document.getElementById("body")
+										submissionCount = 0
+		                for (var key in t["submissions"])
+		                {
+
+		                  var div1 = document.createElement("div");
+		                  div1.setAttribute("id","div"+key)
+		                  div1.classList.add("subFrame")
+		                  div1.style.border="double"
+											div1.style.borderColor="#6c7ae0"
+											div1.style.borderRadius="20px"
+											div1.style.margin="80px"
+
+
+
+		                  var p1 = document.createElement("p")
+		                  p1.innerHTML = "Exam " + t["submissions"][key][0]
+											p1.style.textAlign = "center"
+											p1.style.fontSize = "40px"
+											p1.style.fontFamily = "monospace"
+
+
+
+
+		                  div1.appendChild(p1)
+
+		                  var p2 = document.createElement("p")
+		                  p2.innerHTML = "Student's UCID: " + t["submissions"][key][1]
+											p2.style.textAlign = "center"
+											p2.style.fontSize = "20px"
+											p2.style.fontFamily = "monospace"
+
+
+		                  div1.appendChild(p2)
+											var questionCounter = 0
+											var count =0
+
+		                  for(var k in t["quests"])
+		                  {
+
+					                    div1.appendChild(document.createElement("BR"))
+					                    var max = t["quests"][k][0]
+
+					                    var pb = document.createElement("p")
+					                    pb.innerHTML = "Question " +k+": "+t["quests"][k][1]
+															pb.style.fontSize = "25px"
+															pb.style.fontFamily = "monospace"
+															pb.style.margin = "10px"
+
+
+					                    div1.appendChild(pb)
+															div1.appendChild(document.createElement("br"))
+
+					                    var p3 = document.createElement("p")
+					                    p3.innerHTML = "Possible Points for Question: "+t["quests"][k][0]
+															p3.style.fontSize = "25px"
+															p3.style.fontFamily = "monospace"
+															p3.style.margin = "10px"
+					                    div1.appendChild(p3)
+															div1.appendChild(document.createElement("br"))
+
+					                    var p4 = document.createElement("p")
+					                    p4.innerHTML ="Submitted Answer: " //+ t["submissions"][key][2][count]
+															p4.style.fontSize = "25px"
+															p4.style.fontFamily = "monospace"
+															p4.style.margin = "10px"
+															p4.style.textAlign = "center"
+
+					                    div1.appendChild(p4)
+															var t1 = document.createElement("textarea")
+															t1.value = t["submissions"][key][2][count]
+															t1.rows = 10;
+															t1.cols = 60;
+															t1.style.display = "inline"
+															t1.style.marginLeft = "350px"
+
+
+															div1.appendChild(t1)
+															div1.appendChild(document.createElement("br"))
+															div1.appendChild(document.createElement("br"))
+															div1.appendChild(document.createElement("br"))
+					                    var p5 = document.createElement("p")
+					                    p5.innerHTML ="Point Awarded for Question: " + t["submissions"][key][3][count]+"/"+max
+															p5.style.fontSize = "25px"
+															p5.style.fontFamily = "monospace"
+															p5.style.margin = "10px"
+					                    div1.appendChild(p5)
+
+					                    var div2 = document.createElement("div")
+					                    div2.classList.add("table100", "ver1", "m-b-110")
+
+					                    var div3 = document.createElement("div")
+					                    div3.classList.add("table100-head")
+
+					                    var table = document.createElement("table")
+
+					                    var tr = document.createElement("tr")
+					                    tr.classList.add("row100","head")
+
+					                    var th = document.createElement("th")
+					                    th.classList.add("cell100","column1")
+					                    th.innerHTML="Constraint"
+
+															var th1 = document.createElement("th")
+															th1.classList.add("cell100","column2")
+															th1.innerHTML="Points"
+
+															var th2 = document.createElement("th")
+															th2.classList.add("cell100","column2")
+															th2.innerHTML="Point Revisions"
+
+
+
+					                    tr.appendChild(th)
+															tr.appendChild(th1)
+															tr.appendChild(th2)
+					                    table.appendChild(tr)
+															div3.appendChild(table)
+															div2.appendChild(div3)
+
+															var conCount = 0
+															for (var constraintKey in t["submissions"][key][5]["constraints"][questionCounter])
+															{
+																var div3b = document.createElement("div")
+															  div3.classList.add("table100-head")
+
+																var table2 = document.createElement("table")
+
+																tr2 = document.createElement("tr")
+																tr2.classList.add("row100","body")
+
+																td =  document.createElement("td")
+																td.classList.add("cell100","column1")
+																td.innerHTML = constraintKey
+																td.style.fontSize="30px"
+																td.style.border="solid"
+																td.style.borderColor = "#6c7ae0"
+																td.style.width = "56%"
+																td.style.textAlign = "center"
+
+
+
+
+
+																td2 =  document.createElement("td")
+																td2.classList.add("cell100","column2")
+																td2.innerHTML = t["submissions"][key][5]["constraints"][questionCounter][constraintKey]
+																td2.style.textAlign = "center"
+
+																td2.style.fontSize="30px"
+																td2.style.border="solid"
+																td2.style.borderColor = "#6c7ae0"
+																td2.style.width = "800px"
+
+
+																var text = document.createElement("textarea")
+																text.value = t["submissions"][key][5]["constraints"][questionCounter][constraintKey]
+																text.style.fontSize = "20px"
+																text.style.textAlign= "center"
+																text.classList.add("cell100","column1")
+																text.style.width = "200px"
+																text.setAttribute("id",(("constraint"+submissionCount)+questionCounter)+conCount)
+																conCount++
+
+																tr2.appendChild(td)
+																tr2.appendChild(td2)
+															//	tr2.appendChild(td3)
+																tr2.appendChild(text)
+
+
+
+
+																table2.appendChild(tr2)
+																div3b.appendChild(table2)
+																div2.appendChild(div3b)
+															}
+															var testCount = 0
+															for (var i = 0; i< t["submissions"][key][5]["test_cases"][questionCounter][0].length;i++)
+															{
+																var div3b = document.createElement("div")
+																div3.classList.add("table100-head")
+
+																var table2 = document.createElement("table")
+
+																tr2 = document.createElement("tr")
+																tr2.classList.add("row100","body")
+
+																td =  document.createElement("td")
+																td.classList.add("cell100","column1")
+																td.innerHTML = "Test Case " + i + ":   "+t["submissions"][key][5]["test_cases"][questionCounter][0][i] +"-------->"+t["submissions"][key][5]["test_cases"][questionCounter][1][i]
+																td.style.textAlign = "center"
+																td.style.fontSize="30px"
+																td.style.border="solid"
+																td.style.borderColor = "#6c7ae0"
+																td.style.width = "56%"
+
+																td2 =  document.createElement("td")
+																td2.classList.add("cell100","column2")
+																td2.innerHTML = t["submissions"][key][5]["passed_test_cases"][questionCounter][i]
+																td2.style.textAlign = "center"
+																td2.style.fontSize="30px"
+																td2.style.border="solid"
+																td2.style.borderColor = "#6c7ae0"
+																td2.style.width = "800px"
+
+																var text = document.createElement("textarea")
+																text.value =  t["submissions"][key][5]["passed_test_cases"][questionCounter][i]
+																text.classList.add("cell100","column1")
+																text.style.width = "200px"
+																text.style.fontSize = "20px"
+																text.style.textAlign= "center"
+																text.setAttribute("id",(("test"+submissionCount)+questionCounter)+testCount)
+
+
+
+																tr2.appendChild(td)
+																tr2.appendChild(td2)
+															//	tr2.appendChild(td3)
+																tr2.appendChild(text)
+
+
+
+
+																table2.appendChild(tr2)
+																div3b.appendChild(table2)
+																div2.appendChild(div3b)
+
+																testCount++
+															}
+
+
+
+					                    div1.appendChild(div2)
+
+
+
+
+					                    count++
+															questionCounter +=1
+
+		                  }
+
+											pComment = document.createElement("p")
+											pComment.innerHTML = "Instructor Comments:"
+											pComment.style.fontSize="30px"
+											pComment.style.fontFamily="30px"
+											pComment.style.marginLeft = "20px"
+											pComment.style.marginBottom = "5px"
+
+
+
+
+											div1.appendChild(pComment)
+
+											comment = document.createElement("textArea")
+											comment.style.width ="800px"
+											comment.style.height ="80px"
+											comment.style.marginLeft = "20px"
+											comment.style.marginBottom = "20px"
+											comment.setAttribute("id","comment"+submissionCount)
+
+
+											div1.appendChild(comment)
+
+		                  body.appendChild(div1)
+											submissionCount++
+		                }
+
+
+										submit = document.createElement("Button")
+										submit.style.width = "90%"
+										submit.style.height= "70px"
+										submit.style.marginLeft= "55px"
+										submit.style.background= "#6c7ae0"
+										submit.innerHTML = "Submit Grade Revisions"
+										submit.style.fontFamily = "monospace"
+										submit.style.fontSize = "30px"
+										submit.style.color = "white"
+										submit.onclick =	revise
+
+
+
+										goBack = document.createElement("Button")
+										goBack.style.width = "90%"
+										goBack.style.height= "50px"
+										goBack.style.marginLeft= "55px"
+										goBack.style.background= "maroon"
+										goBack.innerHTML = "Return to Instructor Page"
+										goBack.style.fontFamily = "monospace"
+										goBack.style.fontSize = "30px"
+										goBack.style.color = "white"
+										goBack.style.marginTop = "1s0px"
+										goBack.onclick = function(){window.location.replace("teacher_page.html")}
+
+
+
+										//hiddenD.hidden = true
+
+
+
+
+
+										var body = document.getElementById("body")
+
+										body.appendChild(submit)
+										body.appendChild(document.createElement("BR"))
+										body.appendChild(document.createElement("BR"))
+										body.appendChild(document.createElement("BR"))
+
+
+										body.appendChild(goBack)
+
+              }
+    }
+
+    const pay =`function=8`
+
+  request.open('POST','https://web.njit.edu/~hhw2/login.php');
+  request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  request.send(pay);
+
+
+
+
+function revise()
+{
+var submissionNumber = 0
+	for (var subId in allDic["submissions"])
+	{
+		test_cases = []
+
+		scores=[]
+		constraints = []
+		id = subId
+		passed_test_cases = []
+		for (var questNum=0; questNum< Object.keys(allDic["quests"]).length;questNum++)
+		{
+				grade = 0
+				//grade+=document.getElementById("constraint")
+				var d = {}
+
+				for (var i=0; i<3;i++)
+			{
+					var identifier = (("constraint"+submissionNumber)+questNum)+i
+					grade += parseFloat(document.getElementById(identifier).value)
+					if (i == 0) {d["def"] = parseFloat(document.getElementById(identifier).value)}
+					else if (i == 1) {d["name"] =  parseFloat(document.getElementById(identifier).value)}
+					else if (i == 2) {d["constraint"] =  parseFloat(document.getElementById(identifier).value)}
+			}
+
+			constraints.push(d)
+			inner_passed = []
+			inner_test = []
+			tc_inputs = []
+			tc_outputs = []
+
+			for (var i in allDic["submissions"][subId][5]["passed_test_cases"][questNum])
+		{
+				tc_inputs.push(allDic["submissions"][subId][5]["test_cases"][questNum][0][i])
+				tc_outputs.push(allDic["submissions"][subId][5]["test_cases"][questNum][1][i])
+
+
+
+				var identifier = (("test"+submissionNumber)+questNum)+i
+				grade += parseFloat(document.getElementById(identifier).value)
+				inner_passed.push(parseFloat(document.getElementById(identifier).value))
+
+		}
+
+
+		inner_test.push(tc_inputs,tc_outputs)
+		test_cases.push(inner_test)
+
+		passed_test_cases.push(inner_passed)
+		scores.push(grade)
+		}//question end
+	comment = document.getElementById("comment"+submissionNumber).value
+
+submissionNumber++
+results = {"constraints":constraints,"passed_test_cases":passed_test_cases,"test_cases":test_cases}
+results = JSON.stringify(results)
+ //results = results.replace(/\"/g, "'");
+
+scoreString = "["
+for (var i in scores)
+{
+	scoreString+=scores[i]
+	if(i<scores.length-1)
+	{scoreString+=","}
+
+}
+scoreString+="]"
+
+var total = 0
+for (var i in scores)
+{
+	total+= scores[i]
+}
+pay2 = `function=10&id=${subId}&scores=${scoreString}&grade=${total}&comment=${comment}&results=${results}`
+console.log(pay2)
+
+
+const request = new XMLHttpRequest();
+
+request.onreadystatechange = function()
+	{
+				if (this.readyState == 4 && this.status == 200)
+				{
+
+					console.log(this.responseText);
+
+					var hiddenD = document.createElement("P")
+					hiddenD.innerHTML = "All Exams Successfully Re-graded!!!"
+					hiddenD.style.fontSize ="40px"
+					hiddenD.style.fontFamily ="monospace"
+					hiddenD.marginLeft = "70px"
+					hiddenD.style.color = "red"
+					hiddenD.style.textAlign = "center"
+					hiddenD.style.borderStyle = "dashed"
+					var b = document.getElementById("body")
+					b.appendChild(hiddenD)
+					localStorage.setItem("exam_make", true);
+					//document.getElementById("hiddenC").hidden = false
+
+				}
+	}
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay2);
+
+
+
+	}//submission end
+
+}//end of function
+
+    </script>
+
+<body id="body">
+
+<!--
+
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+								<tr class="row100 head">
+									<th class="cell100 column1">Class name</th>
+									<th class="cell100 column2">Type</th>
+									<th class="cell100 column3">Hours</th>
+									<th class="cell100 column4">Trainer</th>
+									<th class="cell100 column5">Spots</th>
+								</tr>
+						</table>
+					</div>
+
+					<div class="table100-body js-pscroll">
+						<table>
+								<tr class="row100 body">
+									<td class="cell100 column1">Like a butterfly</td>
+									<td class="cell100 column2">Boxing</td>
+									<td class="cell100 column3">9:00 AM - 11:00 AM</td>
+									<td class="cell100 column4">Aaron Chapman</td>
+									<td class="cell100 column5">10</td>
+								</tr>
+              </table>
+            </div>
+
+            <div class="table100-body js-pscroll">
+              <table>
+                  <tr class="row100 body">
+                    <td class="cell100 column1">Like a butterfly</td>
+                    <td class="cell100 column2">Boxing</td>
+                    <td class="cell100 column3">9:00 AM - 11:00 AM</td>
+                    <td class="cell100 column4">Aaron Chapman</td>
+                    <td class="cell100 column5">10</td>
+                  </tr>
+                </table>
+              </div>
+						-->
+
+<style>
+
+
+
+.table100 {
+  background-color: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  font-weight: unset;
+  padding-right: 10px;
+}
+
+.column1 {
+  width: 33%;
+  padding-left: 40px;
+}
+
+.column2 {
+  width: 13%;
+}
+
+.column3 {
+  width: 22%;
+}
+
+.column4 {
+  width: 19%;
+}
+
+.column5 {
+  width: 13%;
+}
+
+.table100-head th {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.table100-body td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+
+.table100 {
+  position: relative;
+  padding-top: 60px;
+}
+
+.table100-head {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+
+
+
+.table100.ver1 th {
+  font-family: Lato-Bold;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.4;
+
+  background-color: #6c7ae0;
+}
+
+
+
+.table100.ver1 {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+</style>
+
+
+
+
+</body>
+</html>

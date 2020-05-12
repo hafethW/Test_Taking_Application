@@ -1,0 +1,119 @@
+<title>ehJax</title>
+
+<style>
+  body {
+  background: url("https://collegeofhairdesign.com/wp-content/uploads/2016/07/bg_gradient1.jpg")
+  }
+  .btn{
+    font-size: 40px;
+    font-family: Monospace;
+    height:500px;
+    width:500px;
+    border:double;
+    border-width:10px;
+    border-color:white;
+    background-color:#ADD8E6;
+    border-radius: 45px;
+    background: url("https://us.123rf.com/450wm/foreverrich/foreverrich1805/foreverrich180500071/102147942-gradient-blue-light-business-template-banner-background.jpg?ver=6")
+  }
+  #take{
+  margin-left:100px;
+  margin-right:70px;
+  }
+
+  h1{
+    text-align:center;
+    font-family:Monospace;
+    font-size:60px;
+    color:white;
+  }
+
+  #logout{
+  background-color:red;
+  color:white;
+  width:60%;
+  height:70px;
+  margin-left:230px;
+  font-size: 40px;
+  font-family:monospace;
+  border:outset;
+
+  }
+  </style>
+
+  <body>
+    <h1>Student Page</h1>
+    <div class = "form">
+
+
+
+      <button  id="take" class="btn">Take Exam</button>
+      <button  id="review" class="btn">Review Results</button>
+      <br><br>
+      <button id="logout" onclick="logout()">LOGOUT</button>
+
+
+
+
+
+      </div>
+    <script>
+console.log(localStorage.getItem("exam_make"))
+console.log(localStorage.getItem("exam_take"))
+
+if (localStorage.getItem("exam_take")!="true")
+{
+  document.getElementById("take").disabled = true
+  document.getElementById("take").style.color="red"
+  document.getElementById("take").style.borderColor="red"
+  document.getElementById("take").innerHTML = "No Exams to Take at this Time"
+}
+
+if (localStorage.getItem("exam_review")!="true")
+{
+  document.getElementById("review").disabled = true
+  document.getElementById("review").style.color="red"
+  document.getElementById("review").style.borderColor="red"
+  document.getElementById("review").innerHTML = "No Exams to Review at this Time"
+}
+
+
+      const form = {
+
+        submit:document.getElementById("take")
+        //submit:document.getElementById("add")
+      };
+
+      const form2 = {
+
+        submit:document.getElementById("review")
+        //submit:document.getElementById("add")
+      };
+
+
+
+form.submit.addEventListener('click',() => {
+
+
+window.location.replace("take_exam.html");
+
+});
+
+form2.submit.addEventListener('click',() => {
+
+
+window.location.replace("student_review.html");
+
+});
+
+
+function logout()
+{
+  window.location.replace("login.html");
+}
+
+
+
+      </script>
+
+      </body>

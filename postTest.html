@@ -1,0 +1,305 @@
+<div class="split left" id = "left" style = "background-image : url(https://cdn.shopify.com/s/files/1/0879/0542/products/pc1478_da4bcba9-c02d-40bd-88c6-8b32119d8933@2x.jpg?v=1513990783);background-size:cover">
+  <label for="difficulty">Choose a Question Difficulty:</label>
+  <select id="difficulty">
+    <option value=0>easy</option>
+    <option value=1>medium</option>
+    <option value=2>hard</option>
+  </select>
+
+  <br>
+  <br>
+  <br>
+  <label for="category">Choose a Question Category:</label>
+  <select id="category">
+    <option value="lists">lists</option>
+    <option value="for">for loops</option>
+    <option value="while">while loops</option>
+    <option value="dict">dictionaries</option>
+    <option value="func">functions</option>
+    <option value="if">if statements</option>
+  </select>
+
+</div>
+
+<div class="split right" id = "right" style="background:url(https://i.pinimg.com/originals/e4/9a/3d/e49a3d345af2cc85aa174323e7c563cb.jpg);background-size:cover">
+  <button id="submit" onclick="createExam()">Create Exam</button>
+
+</div>
+
+<style>
+label{
+    color:white;
+    font-family: "Lucida Console", Courier, monospace;
+
+  }
+
+p {
+color:white;
+font-family: "Lucida Console", Courier, monospace;
+
+}
+.questionNode{
+  border-style: double;
+    border-width: 5px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+
+}
+
+  /* Split the screen in half */
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #111;
+  }
+
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color:  grey;
+  }
+
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }
+
+
+
+
+
+  </style>
+
+<script>
+  var questionList = [];
+  var testList = [];
+  var count = 0
+  var submitList = [];
+
+
+function createExam()
+{
+  for(var q in testList)
+  {
+    var qDic =
+    {
+      question_id: String(document.getElementById(testList[q]).childNodes[8].innerHTML),
+      points: String(document.getElementById(testList[q]).childNodes[7].value)
+    }
+    submitList.push(qDic)
+  }
+}
+
+
+
+
+  function addToTest(btnId)
+  {
+    document.getElementById("right").appendChild(document.getElementById(btnId))
+    testList.push(btnId)
+  }
+
+function displayQuestions()
+{
+  for (var q in questionList)
+  {
+    var div1;
+    div1 = document.createElement("div");
+    div1.setAttribute("id","div"+q)
+    div1.classList.add("questionNode")
+    div1.style.margin="40px"
+
+    var p1 = document.createElement("p");
+    p1.innerHTML = questionList[q]["question"]
+    div1.appendChild(p1)
+
+    var p2 = document.createElement("p");
+    p2.innerHTML = questionList[q]["topic"]
+    p2.style.width="50%"
+    p2.style.display="inline-block";
+
+    div1.appendChild(p2)
+
+
+    var p3 = document.createElement("p");
+    p3.innerHTML = questionList[q]["difficulty"]
+    p3.style.width="50%"
+    p3.style.display="inline-block";
+
+    div1.appendChild(p3)
+
+    var p4 = document.createElement("p");
+    p4.innerHTML = questionList[q]["input1"] + " " + questionList[q]["output1"]
+    div1.appendChild(p4)
+
+    var p5 = document.createElement("p");
+    p5.innerHTML = questionList[q]["input2"] + " " + questionList[q]["output2"]
+    div1.appendChild(p5)
+
+    var p6 = document.createElement("p");
+    p6.innerHTML = questionList[q]["functionName"]
+    div1.appendChild(p6)
+
+    var btn1 = document.createElement("BUTTON");
+    btn1.setAttribute("id","addBtn"+q)
+    btn1.innerHTML = "+"
+    btn1.style.width = "100%"
+    btn1.onclick = function()
+    {
+    addToTest(this.parentNode.id)
+  };
+    div1.appendChild(btn1)
+
+    var txt1 = document.createElement("TEXTAREA");
+    div1.appendChild(txt1)
+
+    var hidden = document.createElement("p")
+    hidden.innerHTML = questionList[q]["qId"]
+    hidden.style.display = "none"
+    div1.appendChild(hidden)
+
+
+    //console.log(div1)
+
+
+    document.getElementById("left").appendChild(div1);
+  }
+}
+
+
+
+
+
+function removeDivs()
+{
+  for (var q in questionList)
+  {
+    document.getElementById("div"+q).remove()
+  }
+}
+
+
+function storeQuestions(questDic)
+{
+  for (var key in questDic)
+  {
+    count++;
+    var placeholder = {
+      question : questDic[key].quest
+    }
+    switch(questDic[key].difficulty)
+    {
+      case "0":
+      placeholder.difficulty="easy";
+      break;
+
+      case "1":
+      placeholder.difficulty="medium";
+      break;
+
+      case "2":
+      placeholder.difficulty="hard";
+      break;
+
+      default:
+      placeholder.difficulty="easy";
+    }
+
+    switch(questDic[key].topic)
+    {
+      case "list":
+      placeholder.topic="Lists";
+      break;
+
+      case "for":
+      placeholder.topic="For Loops";
+      break;
+
+      case "while":
+      placeholder.topic="While Loops";
+      break;
+
+      case "dict":
+      placeholder.topic="Dictionaries";
+      break;
+
+      case "func":
+      placeholder.topic="Functions";
+      break;
+
+      case "if":
+      placeholder.topic="If Statements";
+      break;
+    }
+
+    placeholder.input1 = questDic[key].test_case_1[0]
+    placeholder.input2 = questDic[key].test_case_1[1]
+
+    placeholder.output1 = questDic[key].test_case_2[0]
+    placeholder.output2 = questDic[key].test_case_2[1]
+
+    placeholder.functionName = questDic[key].function_name
+    placeholder.qId = key
+
+
+questionList.push(placeholder)
+  }
+}
+
+const request = new XMLHttpRequest();
+
+
+request.onreadystatechange = function()
+{
+        if (this.readyState == 4 && this.status == 200)
+         {
+          // var y =  '{"1": {"difficulty":"0","topic":"if","quest":"Write a function named cat_dog that returns True if the string \"cat and dog "}}'//appear the same number of times in the given string. Has one parameter: str a string"}}'//,"test_case_1":["catcat","False"],"test_case_2":["1cat1cadodog","True"],"function_name":"cat_dog(str)","constraint":"if"}}'
+
+
+           //console.log(typeof JSON.parse(this.responseText))
+           //console.log(JSON.parse(this.responseText))
+           console.log(JSON.parse(this.responseText))
+
+          //console.log(JSON.parse(this.responseText))
+
+
+
+           //console.log(JSON.parse(this.responseText))
+
+            //console.log(typeof JSON.parse(y))
+          //  storeQuestions(t)
+
+          //  displayQuestions();
+
+          }
+}
+
+var pay = `function=5`
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+
+
+
+  </script>

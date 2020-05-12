@@ -1,0 +1,428 @@
+<div class="split left" id = "left" style = "background-image : url(https://cdn.shopify.com/s/files/1/0879/0542/products/pc1478_da4bcba9-c02d-40bd-88c6-8b32119d8933@2x.jpg?v=1513990783);background-size:cover">
+  <button style = "background-color:red;margin-left:10px;font-family:monospace;color:white;width:80px;" onclick = "back()">Return</button>
+<br><br>
+  <label for="difficulty" style="margin-left:30px">Choose a Question Difficulty:</label>
+  <select id="difficulty">
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Hard">Hard</option>
+    <option selected value=""></option>
+
+  </select>
+
+  <button  onclick="filter()" id="search" style="width:180px; margin-left:30px;">Search</button>
+
+  <br><br><br>
+  <label style="margin-left:30px" for="category">Choose a Question Category:</label>
+  <select id="category">
+    <option value="Lists">lists</option>
+    <option value="For Loops">for loops</option>
+    <option value="While Loops">while loops</option>
+    <option value="Dictionaries">dictionaries</option>
+    <option value="String">string</option>
+    <option value="If Statements">if statements</option>
+    <option selected value=""></option>
+
+  </select>
+<input placeholder="Keyword" id="keyword" type = "text" style="margin-left:20px">
+</div>
+
+<div class="split right" id = "right" style="background:url(https://i.pinimg.com/originals/e4/9a/3d/e49a3d345af2cc85aa174323e7c563cb.jpg);background-size:cover">
+  <button id="submit" onclick="createExam()">Create Exam</button>
+
+</div>
+
+<style>
+  #submit{
+    width: 300px;
+    height:50px;
+    margin-left:160px;
+    background-color:green;
+    font-family:monospace;
+    color:white;
+    font-size:40px;
+  }
+.score{
+display:inline;
+height:20px;
+margin-left:10px;
+
+}
+
+
+
+  .add {
+    font-size:20px;
+      font-family:monospace;
+        height:40px;
+    background:url("https://www.aiga.org/globalassets/migrated-images/uploadedimages/aiga/content/tools_and_resources/diversity_and_inclusion/why-is-graphic-design-93-percent-white-640.jpg")
+  }
+label{
+    color:white;
+    font-family: "Lucida Console", Courier, monospace;
+
+  }
+
+p {
+color:white;
+font-family: "Lucida Console", Courier, monospace;
+
+}
+.questionNode{
+  border-style: double;
+    border-width: 5px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+
+}
+
+  /* Split the screen in half */
+  .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #111;
+  }
+
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color:  grey;
+  }
+
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }
+
+
+
+
+
+  </style>
+
+<script>
+
+  function back()
+  {
+    window.location.replace("teacher_page.html")
+  }
+
+  var questionList = [];
+  var testList = [];
+  var count = 0
+  var submitListIds = [];
+  var submitListPoints = [];
+
+  var empty = false;
+  var currentList = []
+
+function createExam()
+{
+
+    const request2 = new XMLHttpRequest();
+  request2.onreadystatechange = function()
+  {
+          if (this.readyState == 4 && this.status == 200)
+           {
+             console.log(this.responseText)
+             window.location.replace("select_limbo.html");
+
+            }
+  }
+
+  for(var q in testList)
+  {
+    var len = document.getElementById(testList[q]).childNodes.length
+
+      submitListIds.push(parseInt(document.getElementById(testList[q]).childNodes[0].innerHTML))
+      submitListPoints.push(parseInt(document.getElementById(testList[q]).childNodes[len-1].value))
+  }
+
+
+
+
+
+  var pay = `quest_ids=[${submitListIds}]&quest_pts=[${submitListPoints}]`
+  request2.open('POST','https://web.njit.edu/~hhw2/login.php');
+  request2.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+  request2.send(pay);
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function addToTest(btnId)
+  {
+    document.getElementById("right").appendChild(document.getElementById(btnId))
+    testList.push(btnId)
+  }
+
+function displayQuestions(questionList)
+{
+  currentList = questionList
+  for (var q in questionList)
+  {
+    var div1;
+    div1 = document.createElement("div");
+    div1.setAttribute("id","div"+q)
+    div1.classList.add("questionNode")
+    div1.style.margin="40px"
+
+    var hidden = document.createElement("p")
+    hidden.innerHTML = questionList[q]["qId"]
+    hidden.style.display = "none"
+    div1.appendChild(hidden)
+
+    var p1 = document.createElement("p");
+    p1.innerHTML = questionList[q]["question"]
+    div1.appendChild(p1)
+
+    var p2 = document.createElement("p");
+    p2.innerHTML = "Topic: "+ questionList[q]["topic"]
+    p2.style.width="50%"
+    p2.style.display="inline-block";
+
+    div1.appendChild(p2)
+
+
+    var p3 = document.createElement("p");
+    p3.innerHTML = "Difficulty: "+questionList[q]["difficulty"]
+    p3.style.width="50%"
+    p3.style.display="inline-block";
+
+    div1.appendChild(p3)
+
+
+    for (var num in questionList[q]["inputList"])
+    {
+    var p4 = document.createElement("p");
+    p4.innerHTML = "Example Input "+ num +": "+questionList[q]["inputList"][num] +" ----> Example Output "+ num +": "+ questionList[q]["outputList"][num]
+    div1.appendChild(p4)
+
+    }
+
+    div1.appendChild(document.createElement("BR"))
+
+
+    var p5 = document.createElement("p");
+    p5.innerHTML ="The Answer Must Contain a"+ questionList[q]["constraint"]
+    div1.appendChild(p5)
+
+
+    var p6 = document.createElement("p");
+    p6.innerHTML = "The Answer Must Contain a Function Called: "+questionList[q]["functionName"]
+    div1.appendChild(p6)
+
+    var btn1 = document.createElement("BUTTON");
+    btn1.classList.add("add")
+    btn1.setAttribute("id","addBtn"+q)
+    btn1.innerHTML = "Add Question to Exam"
+    btn1.style.width = "400px"
+
+
+    btn1.onclick = function()
+    {
+    addToTest(this.parentNode.id)
+  };
+    btn1.style.margin = "5px"
+    div1.appendChild(btn1)
+
+    var txt1 = document.createElement("TEXTAREA");
+    txt1.classList.add("score")
+    txt1.cols = 10
+      txt1.rows = 1
+      txt1.placeholder = "Max Points"
+    div1.appendChild(txt1)
+
+
+console.log(div1)
+
+    document.getElementById("left").appendChild(div1);
+  }
+}
+
+
+
+
+
+function removeDivs()
+{
+  for (var q in currentList)
+  {
+    document.getElementById("div"+q).remove()
+  }
+  currentList=[]
+}
+
+
+function storeQuestions(questDic)
+{
+  for (var key in questDic)
+  {
+    count++;
+    var placeholder = {
+      question : questDic[key].quest
+    }
+    switch(questDic[key].difficulty)
+    {
+      case "0":
+      placeholder.difficulty="Easy";
+      break;
+
+      case "1":
+      placeholder.difficulty="Medium";
+      break;
+
+      case "2":
+      placeholder.difficulty="Hard";
+      break;
+
+      default:
+      placeholder.difficulty="Easy";
+    }
+
+    switch(questDic[key].topic)
+    {
+      case "list":
+      placeholder.topic="Lists";
+      break;
+
+      case "for":
+      placeholder.topic="For Loops";
+      break;
+
+      case "while":
+      placeholder.topic="While Loops";
+      break;
+
+      case "dict":
+      placeholder.topic="Dictionaries";
+      break;
+
+      case "string":
+      placeholder.topic="String";
+      break;
+
+      case "if":
+      placeholder.topic="If Statements";
+      break;
+    }
+
+    placeholder.inputList = questDic[key].tc_inputs
+    placeholder.outputList = questDic[key].tc_outputs
+
+    placeholder.functionName = questDic[key].function_name
+    placeholder.constraint = questDic[key].constraint
+    switch(questDic[key].constraint)
+    {
+      case "None":
+      placeholder.constraint=" Return Statement";
+      break;
+
+      case "for":
+      placeholder.constraint=" For Loop";
+      break;
+
+      case "while":
+      placeholder.constraint=" While Loop";
+      break;
+
+      case "if":
+      placeholder.constraint="n If Statement";
+      break;
+
+      case "if":
+      placeholder.constraint="Print Statement";
+      break;
+
+      default:
+      placeholder.constraint=" Return Statement";
+    }
+    placeholder.qId = key
+questionList.push(placeholder)
+  }
+}
+
+const request = new XMLHttpRequest();
+
+
+request.onreadystatechange = function()
+{
+        if (this.readyState == 4 && this.status == 200)
+         {
+
+
+           var t = JSON.parse(this.responseText)
+            storeQuestions(t)
+
+            displayQuestions(questionList);
+
+          }
+}
+
+var pay = `function=5`
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+
+function filter()
+{
+  var keyword = document.getElementById("keyword").value
+  var topic = document.getElementById("category").value
+  var difficulty = document.getElementById("difficulty").value
+
+if(!empty)
+{removeDivs()
+empty = true;
+}
+var relevantList = []
+for (var q in questionList)
+{
+  console.log(questionList[q])
+    if(questionList[q]["topic"].includes(topic) && questionList[q]["difficulty"].includes(difficulty) && questionList[q]["question"].includes(keyword))
+    {
+      console.log(questionList[q])
+      relevantList.push(questionList[q])
+    }
+
+}
+
+displayQuestions(relevantList)
+if(relevantList.length != 0)
+{
+  empty=false
+}
+}
+  </script>

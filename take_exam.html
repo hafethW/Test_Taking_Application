@@ -1,0 +1,205 @@
+<html>
+<body id = "body">
+<div id = "main">
+
+</div>
+
+
+<style>
+body {
+background: url("https://news.efinancialcareers.com/binaries/content/gallery/efinancial-careers/articles/2012/09/exam_multiplechoice.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+
+}
+#main{
+  background: url("https://image.freepik.com/free-photo/grey-gradient-room-background-empty-room-light-interior-your-creative-show-display-your-products_9635-3303.jpg");
+  background-size: cover;
+  background-color:#f2f2f2;
+  border-style: inset;
+  border-radius: 10px;
+  margin: 50px;
+}
+
+p{
+  font-family:Monospace, Helvetica, sans-serif;
+}
+textarea {
+  margin-left: 100px;
+
+  display:block;
+  border-radius: 10px;
+
+}
+.score {
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 40px;
+
+
+}
+
+.question {
+text-align: center;
+font-size: 20px;
+width: 70%;
+margin-left: auto;
+margin-right: auto;
+}
+
+#testBtn {
+width:60%;
+height:60px;
+margin-left: 200px;
+background-color: green; /* Green */
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 30px;
+font-color: black;
+font-family: monospace;
+margin-bottom: 20px;
+border-radius: 12px;
+
+
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+
+<script>
+var button
+var ucid = localStorage.getItem('ucid');
+var examId
+var ptList = []
+var answerList=[]
+var questionList = [];
+
+const request = new XMLHttpRequest();
+
+const pay = `function=6`
+request.open('POST','https://web.njit.edu/~hhw2/login.php');
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.send(pay);
+request.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200)
+        {
+          const u = JSON.parse(this.responseText)
+          examId = u["exam_id"]
+
+
+          for (var q in u["quests"])
+          {
+            var title =  document.createElement("p");
+            title.innerHTML = "Question " + (parseInt(q)+1);
+            title.classList.add("title");
+            document.getElementById("main").appendChild(title);
+
+
+            var question = document.createElement("p");
+            question.innerHTML =  u["quests"][q]
+            question.classList.add("question");
+
+            document.getElementById("main").appendChild(question)
+
+
+            var answer =  document.createElement("textarea");
+            answer.setAttribute("id","answer"+q)
+            questionList.push("answer"+q)
+            answer.setAttribute("rows",10)
+            answer.setAttribute("cols",70)
+            answer.style.display = "inline-block"
+
+            document.getElementById("main").appendChild(answer)
+
+            var score = document.createElement("p");
+            score.innerHTML = u["quests_pts"][q] + " Points"
+            document.getElementById("main").appendChild(score)
+            score.style.display = "inline-block"
+            score.classList.add("score");
+          }
+          document.getElementById("main").appendChild(document.createElement("BR"))
+          button = document.createElement("BUTTON");
+          button.setAttribute("id","testBtn");
+
+
+
+
+
+          button.innerHTML = "Submit Exam"
+          button.addEventListener("click", submitTest)
+          document.getElementById("main").appendChild(button);
+        }
+      /*const form = {
+      submit: document.getElementById("btn")
+      };*/
+}
+
+function submitTest(){
+            var sendThis=[]
+            for (var q in questionList)
+            {
+            sendThis.push(document.getElementById("answer"+q).value)
+            }
+
+            const request2 = new XMLHttpRequest();
+
+            request2.onreadystatechange = function()
+                  {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                      console.log(this.responseText)
+
+                     window.location.replace("take_limbo.html");
+
+                    }
+                  }
+
+            sendString = '['
+              for (var y in sendThis){
+                sendString+= '\"'+sendThis[y]+'\"'
+                if(y!= sendThis.length-1){sendString+=","}
+                }
+                sendString+=']'
+
+
+                sendString = sendString.replace(/\+/g,"%2B")
+
+            var pay2 = `exam_id=${examId}&ucid=${ucid}&answers=${sendString}`
+            console.log(pay2)
+            request2.open('POST','https://web.njit.edu/~hhw2/login.php');
+            request2.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            request2.send(pay2);
+
+
+      }
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
